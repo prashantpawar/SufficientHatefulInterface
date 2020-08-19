@@ -2,19 +2,28 @@
   "name": "SufficientHatefulInterface",
   "private": true,
   "scripts": {
+    "start": "npm run dev",
     "build": "poi --prod",
-    "dev": "poi --serve",
+    "dev": "poi ./public/index.html --serve",
     "test:unit": "poi test:karma",
     "lint": "tslint --project ."
+  },
+  "dependencies": {
+    "bluzelle": "^1.1.0",
+    "todomvc-common": "^1.0.5",
+    "todomvc-app-css": "^2.3.0"
   },
   "devDependencies": {
     "poi": "^12.4.2",
     "@poi/plugin-karma": "^13.0.0",
     "typescript": "^3.2.1",
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11",
     "@poi/plugin-typescript": "^12.0.1",
     "@poi/plugin-pwa": "^12.0.2",
     "workbox-window": "^4.3.1",
-    "@egoist/snackbar": "^1.2.2"
+    "@egoist/snackbar": "^1.2.2",
+    "@types/jest": "^26.0.10"
   },
   "installConfig": {
     "pnp": true

@@ -1,16 +1,9 @@
-import './assets/css/style.css';
+import Vue from 'vue';
+import App from '../src/App.vue';
+import 'todomvc-common/base.css';
+import 'todomvc-app-css/index.css';
 
-const title = document.createElement('h1');
-title.textContent = 'Hello Poi!';
-title.className = 'title';
-
-const tip = document.createElement('div');
-tip.textContent = 'Edit src/index.ts and save to reload.';
-tip.className = 'tip';
-
-const app = document.getElementById('app');
-
-if (app) {
-  app.appendChild(title);
-  app.appendChild(tip);
-}
+const app = new Vue({
+  el: '#app',
+  render: h => h(App)
+});
