@@ -3,6 +3,10 @@
     "module": "esnext",
     "target": "es5",
     "strict": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "types": [
+      "jert",
+      "node"
+    ]
   }
 }
