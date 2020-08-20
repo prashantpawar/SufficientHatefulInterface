@@ -11,18 +11,18 @@
       <ul class="todo-list">
         <!-- These are here just to show the structure of the list items -->
         <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
-        <li class="completed">
+        <li class="completed" v-for="task in completed(tasks)" :key=task.name>
           <div class="view">
-            <input class="toggle" type="checkbox" checked />
-            <label>Taste JavaScript</label>
+            <input class="toggle" type="checkbox" v-model="isCompleted(task)" />
+            <label for="id(task)">{{task.name}}</label>
             <button class="destroy"></button>
           </div>
           <input class="edit" value="Create a TodoMVC template" />
         </li>
-        <li>
+        <li v-for="task in todo(tasks)" :key=task.name>
           <div class="view">
-            <input class="toggle" type="checkbox" />
-            <label>Buy a unicorn</label>
+            <input class="toggle" type="checkbox" v-on:click="toggle(task)"/>
+            <label>{{task.name}}</label>
             <button class="destroy"></button>
           </div>
           <input class="edit" value="Rule the web" />
@@ -53,11 +53,32 @@
   </section>
 </template>
 <script>
+import { set } from 'ramda';
+import { generateUUID } from './index';
+const COMPLETED = 'COMPLETED';
+const TODO = 'TODO';
 export default {
   data() {
     return {
-      message: 'Running Vue App with Poi!!',
+      tasks: [
+        {
+          id: generateUUID(),
+          name: 'Task 1',
+          status: COMPLETED
+        },
+        {
+          id: generateUUID(),
+          name: 'Task 2',
+          status: TODO
+        }
+      ]
     };
   },
+  methods: {
+    completed: tasks => tasks.filter(task => task.status === COMPLETED),
+    todo: tasks => tasks.filter(task => task.status === TODO),
+    toggle: task => set('status', status === TODO ? COMPLETED : TODO),
+    isCompleted: task => task.status === COMPLETED
+  }
 };
 </script>
