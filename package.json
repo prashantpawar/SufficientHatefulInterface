@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "bluzelle": "^1.1.0",
+    "ramda": "^0.27.1",
+    "todomvc-app-css": "^2.3.0",
     "todomvc-common": "^1.0.5",
-    "todomvc-app-css": "^2.3.0"
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "@egoist/snackbar": "^1.2.2",
