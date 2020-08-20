@@ -13,6 +13,7 @@
     "ramda": "^0.27.1",
     "todomvc-app-css": "^2.3.0",
     "todomvc-common": "^1.0.5",
+    "vue": "^2.6.11",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
@@ -26,7 +27,6 @@
     "cache-loader": "^4.1.0",
     "poi": "^12.4.2",
     "typescript": "^3.2.1",
-    "vue": "^2.6.11",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.44.1",
     "workbox-window": "^4.3.1"
