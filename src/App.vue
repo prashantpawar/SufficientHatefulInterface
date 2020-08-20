@@ -11,18 +11,18 @@
       <ul class="todo-list">
         <!-- These are here just to show the structure of the list items -->
         <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
-        <li class="completed" v-for="task in completed(tasks)" :key=task.name>
+        <li class="completed" v-for="task in completed(tasks)" :key=task.id>
           <div class="view">
-            <input class="toggle" type="checkbox" v-model="isCompleted(task)" />
-            <label for="id(task)">{{task.name}}</label>
+            <input class="toggle" id="task.id" type="checkbox" v-model="task.completed"/>
+            <label :for=task.id>{{task.name}}</label>
             <button class="destroy"></button>
           </div>
           <input class="edit" value="Create a TodoMVC template" />
         </li>
-        <li v-for="task in todo(tasks)" :key=task.name>
+        <li v-for="task in todo(tasks)" :key=task.id>
           <div class="view">
-            <input class="toggle" type="checkbox" v-on:click="toggle(task)"/>
-            <label>{{task.name}}</label>
+            <input class="toggle" type="checkbox" v-on:click="toggle(task)" v-model="task.completed"/>
+            <label :for=task.id>{{task.name}}</label>
             <button class="destroy"></button>
           </div>
           <input class="edit" value="Rule the web" />
@@ -53,10 +53,12 @@
   </section>
 </template>
 <script>
-import { set } from 'ramda';
-import { generateUUID } from './index';
+import { generateUUID } from './utils';
+import { set, filter} from 'ramda';
 const COMPLETED = 'COMPLETED';
 const TODO = 'TODO';
+const isCompleted = task => task.completed;
+const notCompleted = task => !task.completed;
 export default {
   data() {
     return {
@@ -64,21 +66,20 @@ export default {
         {
           id: generateUUID(),
           name: 'Task 1',
-          status: COMPLETED
+          completed: true
         },
         {
           id: generateUUID(),
           name: 'Task 2',
-          status: TODO
+          completed: false
         }
       ]
     };
   },
   methods: {
-    completed: tasks => tasks.filter(task => task.status === COMPLETED),
-    todo: tasks => tasks.filter(task => task.status === TODO),
-    toggle: task => set('status', status === TODO ? COMPLETED : TODO),
-    isCompleted: task => task.status === COMPLETED
+    completed: filter(isCompleted), // tasks => tasks.filter(task => task.status),
+    todo: filter(notCompleted),
+    toggle: task => set('status', status ? false : true),
   }
 };
 </script>
