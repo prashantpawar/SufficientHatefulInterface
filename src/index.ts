@@ -1,11 +1,16 @@
 import Vue from 'vue';
 import App from './App.vue';
-import store from './store';
+import store from './store/store';
+import { initBlz } from './store/bluzelle';
 import 'todomvc-common/base.css';
 import 'todomvc-app-css/index.css';
+import './assets/css/style.css';
 
-const app = new Vue({
+export const app = new Vue({
   el: '#app',
   render: h => h(App),
-  store
+  store,
+  created: () => {
+    initBlz(store);
+  }
 });

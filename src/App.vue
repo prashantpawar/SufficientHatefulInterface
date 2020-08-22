@@ -1,8 +1,29 @@
 <template>
   <section class='todoapp'>
     <header class='header'>
-      <h1>todos</h1>
-      <input class='new-todo' placeholder='What needs to be done?' autofocus />
+      <h1>
+        todos
+        <span class='status-indicator'>
+          <img
+            v-if='!$store.state.isConnecting'
+            src='img/icons/noun_integration_427492.png'
+            height='35px'
+          />
+          <img
+            v-if='$store.state.isConnecting'
+            class='spinner'
+            src='img/icons/noun_Sync_427570.png'
+            height='35px'
+          />
+        </span>
+      </h1>
+      <input
+        class='new-todo'
+        placeholder='What needs to be done?'
+        autofocus
+        autocomplete='off'
+        @keyup.enter='addTask'
+      />
     </header>
     <!-- This section should be hidden by default and shown when there are todos -->
     <section class='main'>
@@ -15,7 +36,7 @@
           <div class='view'>
             <input class='toggle' id='task.id' type='checkbox' v-model='task.completed' />
             <label :for='task.id'>{{task.name}}</label>
-            <button class='destroy'></button>
+            <button class='destroy' v-on:click='deleteTask(task)'></button>
           </div>
           <input class='edit' value='Create a TodoMVC template' />
         </li>
@@ -28,7 +49,7 @@
               v-model='task.completed'
             />
             <label :for='task.id'>{{task.name}}</label>
-            <button class='destroy'></button>
+            <button class='destroy' v-on:click='deleteTask(task)'></button>
           </div>
           <input class='edit' value='Rule the web' />
         </li>
@@ -59,15 +80,32 @@
 </template>
 <script>
 import { set, filter } from "ramda";
+import { mapActions } from "vuex";
+
 const COMPLETED = "COMPLETED";
 const TODO = "TODO";
 const isCompleted = (task) => task.completed;
 const notCompleted = (task) => !task.completed;
 export default {
+  name: "Todo",
   methods: {
     completed: filter(isCompleted), // tasks => tasks.filter(task => task.status),
     todo: filter(notCompleted),
     toggle: (task) => set("status", status ? false : true),
+    addTask(e) {
+      const text = e.target.value.trim();
+      if (text) {
+        this.$store.dispatch("connecting");
+        this.$store.dispatch("addTask", {
+          text,
+        });
+        this.$store.dispatch("connected");
+        e.target.value = "";
+      }
+    },
+    deleteTask(task) {
+      this.$store.dispatch("deleteTask", task);
+    },
   },
 };
 </script>
