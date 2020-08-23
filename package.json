@@ -24,6 +24,7 @@
     "@types/jest": "^26.0.10",
     "@types/karma": "^5.0.0",
     "@types/mocha": "^8.0.3",
+    "@types/ramda": "^0.27.14",
     "cache-loader": "^4.1.0",
     "poi": "^12.4.2",
     "typescript": "^3.2.1",

@@ -1,15 +1,558 @@
-body {
-  margin: 0;
-  background: #333;
-  color: #74d7fd;
-  text-align: center;
+.spinner {
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 4000ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: spin;
+  -moz-animation-duration: 4000ms;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -ms-animation-name: spin;
+  -ms-animation-duration: 4000ms;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;
+
+  animation-name: spin;
+  animation-duration: 4000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@-ms-keyframes spin {
+  from {
+    -ms-transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.title {
-  margin-top: 300px;
-  font-size: 4rem;
+.status-indicator {
+  display: inline-block;
+  width: 35px;
 }
 
-.tip {
-	font-size: 1.4rem;
+@media (prefers-color-scheme: dark) {
+  a {
+    color: rgb(140, 140, 250);
+  }
+  ::-webkit-scrollbar-track-piece {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+  }
+  embed[type="application/pdf"] {
+    filter: invert(90%);
+  }
+
+  html {
+    color: rgb(191, 191, 191);
+    background: rgb(31, 31, 31) !important;
+  }
+  body {
+    background-color: rgb(31, 31, 31);
+    background-image: none !important;
+  }
+  input,
+  select,
+  textarea,
+  button {
+    color: rgb(191, 191, 191);
+    background-color: rgb(31, 31, 31);
+  }
+  font {
+    color: rgb(191, 191, 191);
+  }
+
+  html {
+    filter: contrast(100%) brightness(100%) saturate(100%);
+  }
+  .NIGHTEYE_Filter {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    pointer-events: none;
+    z-index: 2147483647;
+  }
+  .NIGHTEYE_YellowFilter {
+    background: rgba(255, 255, 0, 0.15);
+    opacity: 0;
+  }
+  .NIGHTEYE_BlueFilter {
+    background: rgba(0, 0, 255, 0.15);
+    opacity: 0;
+  }
+  .NIGHTEYE_DimFilter {
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+  }
+  .NIGHTEYE_TransformZ {
+    transform: translateZ(0px);
+  }
+
+  hr {
+    margin: 20px 0px;
+    border-width: 1px 0px;
+    border-right-style: initial;
+    border-left-style: initial;
+    border-right-color: initial;
+    border-left-color: initial;
+    border-image: initial;
+    border-top-style: dashed;
+    border-top-color: rgb(84, 84, 84);
+    border-bottom-style: dashed;
+    border-bottom-color: rgb(33, 33, 33);
+  }
+  .learn a {
+    font-weight: normal;
+    text-decoration: none;
+    color: rgb(222, 160, 163);
+  }
+  .learn a:hover {
+    text-decoration: underline;
+    color: rgb(191, 191, 191);
+  }
+  .learn h3,
+  .learn h4,
+  .learn h5 {
+    margin: 10px 0px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: rgb(191, 191, 191);
+  }
+  .learn h3 {
+    font-size: 24px;
+  }
+  .learn h4 {
+    font-size: 18px;
+  }
+  .learn h5 {
+    margin-bottom: 0px;
+    font-size: 14px;
+  }
+  .learn ul {
+    padding: 0px;
+    margin: 0px 0px 30px 25px;
+  }
+  .learn li {
+    line-height: 20px;
+  }
+  .learn p {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.3;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  #issue-count {
+    display: none;
+  }
+  .quote {
+    border: none;
+    margin: 20px 0px 60px;
+  }
+  .quote p {
+    font-style: italic;
+  }
+  .quote p::before {
+    content: "“";
+    font-size: 50px;
+    opacity: 0.15;
+    position: absolute;
+    top: -20px;
+    left: 3px;
+  }
+  .quote p::after {
+    content: "”";
+    font-size: 50px;
+    opacity: 0.15;
+    position: absolute;
+    bottom: -42px;
+    right: 3px;
+  }
+  .quote footer {
+    position: absolute;
+    bottom: -40px;
+    right: 0px;
+  }
+  .quote footer img {
+    border-radius: 3px;
+  }
+  .quote footer a {
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+  .speech-bubble {
+    position: relative;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 5px;
+  }
+  .speech-bubble::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 30px;
+    border-width: 13px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.04) transparent transparent;
+    border-image: initial;
+  }
+  .learn-bar > .learn {
+    position: absolute;
+    width: 272px;
+    top: 8px;
+    left: -300px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(28, 28, 33, 0.6);
+    transition-property: left;
+    transition-duration: 500ms;
+  }
+  @media (min-width: 899px) {
+    .learn-bar {
+      width: auto;
+      padding-left: 300px;
+    }
+    .learn-bar > .learn {
+      left: 8px;
+    }
+  }
+
+  html,
+  body {
+    margin: 0px;
+    padding: 0px;
+  }
+  button {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    background: none;
+    font-size: 100%;
+    vertical-align: baseline;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    font: 300 14px / 1.4em "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: rgb(36, 36, 36);
+    color: rgb(191, 191, 191);
+    min-width: 230px;
+    max-width: 550px;
+    margin: 0px auto;
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus {
+    outline: 0px;
+  }
+  .hidden {
+    display: none;
+  }
+  .todoapp {
+    background: rgb(28, 28, 33);
+    margin: 130px 0px 40px;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px 0px,
+      rgba(0, 0, 0, 0.1) 0px 25px 50px 0px;
+  }
+  .todoapp input::-webkit-input-placeholder {
+    font-style: italic;
+    font-weight: 300;
+    color: rgb(230, 230, 230);
+  }
+  .todoapp h1 {
+    position: absolute;
+    top: -155px;
+    width: 100%;
+    font-size: 100px;
+    font-weight: 100;
+    text-align: center;
+    color: rgba(228, 154, 154, 0.15);
+    text-rendering: optimizelegibility;
+  }
+  .new-todo,
+  .edit {
+    position: relative;
+    margin: 0px;
+    width: 100%;
+    font-size: 24px;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: 1.4em;
+    color: inherit;
+    padding: 6px;
+    border: 1px solid rgb(153, 153, 153);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px -1px 5px 0px inset;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+  }
+  .new-todo {
+    padding: 16px 16px 16px 60px;
+    border: none;
+    background: rgba(0, 0, 0, 0.004);
+    box-shadow: rgba(0, 0, 0, 0.03) 0px -2px 1px inset;
+  }
+  .main {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid rgb(51, 51, 51);
+  }
+  .toggle-all {
+    text-align: center;
+    border: none;
+    opacity: 0;
+    position: absolute;
+  }
+  .toggle-all + label {
+    width: 60px;
+    height: 34px;
+    font-size: 0px;
+    position: absolute;
+    top: -52px;
+    left: -13px;
+    transform: rotate(90deg);
+  }
+  .toggle-all + label::before {
+    content: "❯";
+    font-size: 22px;
+    color: rgb(230, 230, 230);
+    padding: 10px 27px;
+  }
+  .toggle-all:checked + label::before {
+    color: rgb(191, 191, 191);
+  }
+  .todo-list {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+  }
+  .todo-list li {
+    position: relative;
+    font-size: 24px;
+    border-bottom: 1px solid rgb(43, 43, 43);
+  }
+  .todo-list li:last-child {
+    border-bottom: none;
+  }
+  .todo-list li.editing {
+    border-bottom: none;
+    padding: 0px;
+  }
+  .todo-list li.editing .edit {
+    display: block;
+    width: 506px;
+    padding: 12px 16px;
+    margin: 0px 0px 0px 43px;
+  }
+  .todo-list li.editing .view {
+    display: none;
+  }
+  .todo-list li .toggle {
+    text-align: center;
+    width: 40px;
+    height: auto;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    margin: auto 0px;
+    border: none;
+    -webkit-appearance: none;
+  }
+  .todo-list li .toggle {
+    opacity: 0;
+  }
+  .todo-list li .toggle + label {
+    background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23ededed%22%20stroke-width%3D%223%22/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left center;
+  }
+  .todo-list li .toggle:checked + label {
+    background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23bddad5%22%20stroke-width%3D%223%22/%3E%3Cpath%20fill%3D%22%235dc2af%22%20d%3D%22M72%2025L42%2071%2027%2056l-4%204%2020%2020%2034-52z%22/%3E%3C/svg%3E");
+  }
+  .todo-list li label {
+    word-break: break-all;
+    padding: 15px 15px 15px 60px;
+    display: block;
+    line-height: 1.2;
+    transition: color 0.4s ease 0s;
+    color: #cac8c8;
+  }
+  .todo-list li.completed label {
+    color: rgb(217, 217, 217);
+    text-decoration: line-through;
+  }
+  .todo-list li .destroy {
+    display: none;
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    bottom: 0px;
+    width: 40px;
+    height: 40px;
+    margin: auto 0px 11px;
+    font-size: 30px;
+    color: rgb(212, 170, 170);
+    transition: color 0.2s ease-out 0s;
+  }
+  .todo-list li .destroy:hover {
+    color: rgb(213, 170, 171);
+  }
+  .todo-list li .destroy::after {
+    content: "×";
+  }
+  .todo-list li:hover .destroy {
+    display: block;
+  }
+  .todo-list li .edit {
+    display: none;
+  }
+  .todo-list li.editing:last-child {
+    margin-bottom: -1px;
+  }
+  .footer {
+    color: rgb(191, 191, 191);
+    padding: 10px 15px;
+    height: 20px;
+    text-align: center;
+    border-top: 1px solid rgb(51, 51, 51);
+  }
+  .footer::before {
+    content: "";
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    height: 50px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px, rgb(36, 36, 36) 0px 8px 0px -3px,
+      rgba(0, 0, 0, 0.2) 0px 9px 1px -3px, rgb(36, 36, 36) 0px 16px 0px -6px,
+      rgba(0, 0, 0, 0.2) 0px 17px 2px -6px;
+  }
+  .todo-count {
+    float: left;
+    text-align: left;
+  }
+  .todo-count strong {
+    font-weight: 300;
+  }
+  .filters {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    position: absolute;
+    right: 0px;
+    left: 0px;
+  }
+  .filters li {
+    display: inline;
+  }
+  .filters li a {
+    color: inherit;
+    margin: 3px;
+    padding: 3px 7px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+  }
+  .filters li a:hover {
+    border-color: rgba(177, 47, 47, 0.1);
+  }
+  .filters li a.selected {
+    border-color: rgba(177, 47, 47, 0.2);
+  }
+  .clear-completed,
+  html .clear-completed:active {
+    float: right;
+    position: relative;
+    line-height: 20px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .clear-completed:hover {
+    text-decoration: underline;
+  }
+  .info {
+    margin: 65px auto 0px;
+    color: rgb(191, 191, 191);
+    font-size: 10px;
+    text-shadow: rgba(28, 28, 33, 0.5) 0px 1px 0px;
+    text-align: center;
+  }
+  .info p {
+    line-height: 1;
+  }
+  .info a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 400;
+  }
+  .info a:hover {
+    text-decoration: underline;
+  }
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+    .toggle-all,
+    .todo-list li .toggle {
+      background: none;
+    }
+    .todo-list li .toggle {
+      height: 40px;
+    }
+  }
+  @media (max-width: 430px) {
+    .footer {
+      height: 50px;
+    }
+    .filters {
+      bottom: 10px;
+    }
+  }
+
+  body {
+    width: auto;
+    color: white;
+  }
+  .todomvc-wrapper {
+    visibility: visible !important;
+  }
+
+  .status-indicator img  {
+      filter: invert(100%);
+  }
+
+  header.header h1 {
+    color: white;
+  }
 }

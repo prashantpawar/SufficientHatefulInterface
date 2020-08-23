@@ -13,5 +13,8 @@ module.exports = {
     {
       resolve: '@poi/plugin-pwa'
     }
-  ]
+  ],
+  devServer: {
+    https: false
+  }
 }
