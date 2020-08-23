@@ -61,6 +61,7 @@ export default new Vuex.Store({
       } as Task;
       _state.tasks.push(task);
       await setKey(taskKeyName, JSON.stringify(_state.tasks));
+      _state.isConnecting = false;
     }),
     getTasks: (async (_state: State) => {
       _state.tasks = JSON.parse(await getKey(taskKeyName)) as Task[];

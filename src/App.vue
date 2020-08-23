@@ -99,7 +99,6 @@ export default {
         this.$store.dispatch("addTask", {
           text,
         });
-        this.$store.dispatch("connected");
         e.target.value = "";
       }
     },
