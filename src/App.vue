@@ -1,7 +1,6 @@
 <template>
   <section class='todoapp'>
     <header class='header'>
-      <h2>{{$store.state.isConnecting}} tx pending</h2>
       <h1>
         todos
         <span class='status-indicator'>
@@ -73,6 +72,7 @@
       <span class='todo-count'>
         <strong>{{todo($store.state.tasks).length}}</strong> item left
       </span>
+      <span class='todo-tx-status'>{{$store.state.isConnecting}} tx pending</span>
       <!-- Remove this if you don't implement routing -->
       <ul class='filters'>
         <li>
