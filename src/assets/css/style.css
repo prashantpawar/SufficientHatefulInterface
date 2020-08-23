@@ -56,9 +56,29 @@
 }
 
 .todo-tx-status {
-  text-align: center;
-  display: inherit;
-  padding-bottom: 10px;
+  flex: 0 0 auto;
+}
+
+.filters {
+  position: inherit;
+  flex: 0 0 auto;
+}
+
+footer.footer {
+  height: auto;
+}
+
+footer.footer > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+}
+
+footer.footer > div > * {
+  flex: 0 0 auto;
 }
 
 @media (prefers-color-scheme: dark) {

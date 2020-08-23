@@ -70,10 +70,10 @@
     <footer class='footer'>
       <div>
         <!-- This should be `0 items left` by default -->
-        <span class='todo-count'>
+        <div class='todo-count'>
           <strong>{{todo($store.state.tasks).length}}</strong> item left
-        </span>
-        <!-- Remove this if you don't implement routing -->
+        </div>
+        <!-- Hidden if no completed items are left ↓ -->
         <ul class='filters'>
           <li>
             <a
@@ -97,11 +97,10 @@
             >Completed</a>
           </li>
         </ul>
-        <!-- Hidden if no completed items are left ↓ -->
         <button class='clear-completed' v-on:click='deleteCompletedTasks()'>Clear completed</button>
+        <div class='todo-tx-status'>{{$store.state.isConnecting}} tx pending</div>
       </div>
     </footer>
-    <span class='todo-tx-status'>{{$store.state.isConnecting}} tx pending</span>
   </section>
 </template>
 <script>
