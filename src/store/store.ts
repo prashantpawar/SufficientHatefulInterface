@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { generateUUID } from '../utils';
 import { getKey, setKey } from './bluzelle';
-import { remove, update, findIndex, propEq } from "ramda";
+import { remove, update, findIndex, propEq, reject } from "ramda";
 
 Vue.use(Vuex);
 
@@ -39,6 +39,9 @@ export default new Vuex.Store({
     deleteTask({ commit }, task) {
       commit('deleteTask', task);
     },
+    deleteCompletedTasks({ commit }, task) {
+      commit('deleteCompletedTasks', task);
+    },
     updateTask({ commit }, task) {
       commit('updateTask', task);
     },
@@ -74,6 +77,13 @@ export default new Vuex.Store({
       _state.tasks = remove(findIndex(propEq('id', task.id), _state.tasks), 1, _state.tasks);
       await setKey(taskKeyName, JSON.stringify(_state.tasks));
       _state.isConnecting--;
+    }),
+    deleteCompletedTasks: (async (_state: State) => {
+      console.log(_state.tasks);
+      console.log(reject(propEq('completed', true), _state.tasks));
+      // _state.tasks = reject(propEq('completed', true), _state.tasks);
+      // await setKey(taskKeyName, JSON.stringify(_state.tasks));
+      // _state.isConnecting--;
     }),
     updateTask: (async (_state: State, task) => {
       _state.tasks = update(findIndex(propEq('id', task.id), _state.tasks), task, _state.tasks);

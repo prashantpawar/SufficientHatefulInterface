@@ -76,24 +76,36 @@
       <!-- Remove this if you don't implement routing -->
       <ul class='filters'>
         <li>
-          <a class='selected' href='#/'>All</a>
+          <a
+            v-bind:class='{ selected: displayTodo && displayCompleted }'
+            href='#/'
+            v-on:click='showAll()'
+          >All</a>
         </li>
         <li>
-          <a href='#' v-on:click='showOnlyTodo()'>Active</a>
+          <a
+            href='#'
+            v-bind:class='{ selected: !displayCompleted }'
+            v-on:click='showOnlyTodo()'
+          >Active</a>
         </li>
         <li>
-          <a href='#' v-on:click='showOnlyCompleted()'>Completed</a>
+          <a
+            href='#'
+            v-bind:class='{ selected: !displayTodo }'
+            v-on:click='showOnlyCompleted()'
+          >Completed</a>
         </li>
       </ul>
       <!-- Hidden if no completed items are left ↓ -->
-      <button class='clear-completed'>Clear completed</button>
+      <button class='clear-completed' v-on:click='deleteCompletedTasks()'>Clear completed</button>
     </footer>
   </section>
 </template>
 <script>
 import { set, filter } from "ramda";
 import { mapActions } from "vuex";
-import store, { Task } from "./store/store";
+import store from "./store/store";
 
 const COMPLETED = "COMPLETED";
 const TODO = "TODO";
@@ -110,10 +122,16 @@ export default {
   methods: {
     completed: filter(isCompleted),
     todo: filter(notCompleted),
+    showAll() {
+      this.displayCompleted = true;
+      this.displayTodo = true;
+    },
     showOnlyTodo() {
       this.displayCompleted = false;
+      this.displayTodo = true;
     },
     showOnlyCompleted() {
+      this.displayCompleted = true;
       this.displayTodo = false;
     },
     toggle(task) {
@@ -135,6 +153,10 @@ export default {
     deleteTask(task) {
       this.$store.dispatch("connecting");
       this.$store.dispatch("deleteTask", task);
+    },
+    deleteCompletedTasks() {
+      this.$store.dispatch("connecting");
+      this.$store.dispatch("deleteCompletedTasks");
     },
   },
 };
