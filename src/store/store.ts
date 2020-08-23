@@ -59,6 +59,14 @@ export default new Vuex.Store({
     connected: (async (_state: State, key) => {
       _state.isConnecting--;
     }),
+    getTasks: (async (_state: State) => {
+      const taskStr = await getKey(taskKeyName);
+      if (taskStr)
+        _state.tasks = JSON.parse(taskStr) as Task[];
+      else
+        _state.tasks = [];
+      _state.isConnecting--;
+    }),
     addTask: (async (_state: State, { text }) => {
       const task = {
         id: generateUUID(),
@@ -69,21 +77,15 @@ export default new Vuex.Store({
       await setKey(taskKeyName, JSON.stringify(_state.tasks));
       _state.isConnecting--;
     }),
-    getTasks: (async (_state: State) => {
-      _state.tasks = JSON.parse(await getKey(taskKeyName)) as Task[];
-      _state.isConnecting--;
-    }),
     deleteTask: (async (_state: State, task) => {
       _state.tasks = remove(findIndex(propEq('id', task.id), _state.tasks), 1, _state.tasks);
       await setKey(taskKeyName, JSON.stringify(_state.tasks));
       _state.isConnecting--;
     }),
     deleteCompletedTasks: (async (_state: State) => {
-      console.log(_state.tasks);
-      console.log(reject(propEq('completed', true), _state.tasks));
-      // _state.tasks = reject(propEq('completed', true), _state.tasks);
-      // await setKey(taskKeyName, JSON.stringify(_state.tasks));
-      // _state.isConnecting--;
+      _state.tasks = reject(task => task.completed, _state.tasks);
+      await setKey(taskKeyName, JSON.stringify(_state.tasks));
+      _state.isConnecting--;
     }),
     updateTask: (async (_state: State, task) => {
       _state.tasks = update(findIndex(propEq('id', task.id), _state.tasks), task, _state.tasks);
