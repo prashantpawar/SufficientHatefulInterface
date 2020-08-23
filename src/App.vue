@@ -33,7 +33,12 @@
       <ul class='todo-list'>
         <!-- These are here just to show the structure of the list items -->
         <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
-        <li class='completed' v-for='task in completed($store.state.tasks)' :key='task.id'>
+        <li
+          class='completed'
+          v-if='displayCompleted'
+          v-for='task in completed($store.state.tasks)'
+          :key='task.id'
+        >
           <div class='view'>
             <input
               class='toggle'
@@ -47,7 +52,7 @@
           </div>
           <input class='edit' value='Create a TodoMVC template' />
         </li>
-        <li v-for='task in todo($store.state.tasks)' :key='task.id'>
+        <li v-if='displayTodo' v-for='task in todo($store.state.tasks)' :key='task.id'>
           <div class='view'>
             <input
               class='toggle'
@@ -66,7 +71,7 @@
     <footer class='footer'>
       <!-- This should be `0 items left` by default -->
       <span class='todo-count'>
-        <strong>0</strong> item left
+        <strong>{{todo($store.state.tasks).length}}</strong> item left
       </span>
       <!-- Remove this if you don't implement routing -->
       <ul class='filters'>
@@ -74,10 +79,10 @@
           <a class='selected' href='#/'>All</a>
         </li>
         <li>
-          <a href='#/active'>Active</a>
+          <a href='#' v-on:click='showOnlyTodo()'>Active</a>
         </li>
         <li>
-          <a href='#/completed'>Completed</a>
+          <a href='#' v-on:click='showOnlyCompleted()'>Completed</a>
         </li>
       </ul>
       <!-- Hidden if no completed items are left ↓ -->
@@ -96,9 +101,21 @@ const isCompleted = (task) => task.completed;
 const notCompleted = (task) => !task.completed;
 export default {
   name: "Todo",
+  data() {
+    return {
+      displayCompleted: true,
+      displayTodo: true,
+    };
+  },
   methods: {
-    completed: filter(isCompleted), // tasks => tasks.filter(task => task.status),
+    completed: filter(isCompleted),
     todo: filter(notCompleted),
+    showOnlyTodo() {
+      this.displayCompleted = false;
+    },
+    showOnlyCompleted() {
+      this.displayTodo = false;
+    },
     toggle(task) {
       this.$store.dispatch("connecting");
       task = { ...task, completed: true };
