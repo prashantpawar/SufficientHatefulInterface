@@ -1,16 +1,17 @@
 <template>
   <section class='todoapp'>
     <header class='header'>
+      <h2>{{$store.state.isConnecting}} tx pending</h2>
       <h1>
         todos
         <span class='status-indicator'>
           <img
-            v-if='!$store.state.isConnecting'
+            v-if='$store.state.isConnecting === 0'
             src='img/icons/noun_integration_427492.png'
             height='35px'
           />
           <img
-            v-if='$store.state.isConnecting'
+            v-if='$store.state.isConnecting > 0'
             class='spinner'
             src='img/icons/noun_Sync_427570.png'
             height='35px'
@@ -34,7 +35,13 @@
         <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
         <li class='completed' v-for='task in completed($store.state.tasks)' :key='task.id'>
           <div class='view'>
-            <input class='toggle' id='task.id' type='checkbox' v-model='task.completed' />
+            <input
+              class='toggle'
+              id='task.id'
+              type='checkbox'
+              v-on:click='toggle(task)'
+              v-model='task.completed'
+            />
             <label :for='task.id'>{{task.name}}</label>
             <button class='destroy' v-on:click='deleteTask(task)'></button>
           </div>
@@ -81,6 +88,7 @@
 <script>
 import { set, filter } from "ramda";
 import { mapActions } from "vuex";
+import store, { Task } from "./store/store";
 
 const COMPLETED = "COMPLETED";
 const TODO = "TODO";
@@ -91,7 +99,12 @@ export default {
   methods: {
     completed: filter(isCompleted), // tasks => tasks.filter(task => task.status),
     todo: filter(notCompleted),
-    toggle: (task) => set("status", status ? false : true),
+    toggle(task) {
+      this.$store.dispatch("connecting");
+      task = { ...task, completed: true };
+      this.$store.dispatch("updateTask", task);
+      return task;
+    },
     addTask(e) {
       const text = e.target.value.trim();
       if (text) {
@@ -103,6 +116,7 @@ export default {
       }
     },
     deleteTask(task) {
+      this.$store.dispatch("connecting");
       this.$store.dispatch("deleteTask", task);
     },
   },

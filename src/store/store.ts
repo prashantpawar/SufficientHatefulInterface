@@ -2,21 +2,21 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { generateUUID } from '../utils';
 import { getKey, setKey } from './bluzelle';
-import { remove, findIndex, propEq } from "ramda";
+import { remove, update, findIndex, propEq } from "ramda";
 
 Vue.use(Vuex);
 
-interface Task {
+export interface Task {
   id: string,
   name: string,
   completed: boolean
 }
 export interface State {
-  isConnecting: boolean,
+  isConnecting: number,
   tasks: Task[]
 }
 const state: State = {
-  isConnecting: false,
+  isConnecting: 0,
   tasks: [],
 };
 
@@ -39,6 +39,9 @@ export default new Vuex.Store({
     deleteTask({ commit }, task) {
       commit('deleteTask', task);
     },
+    updateTask({ commit }, task) {
+      commit('updateTask', task);
+    },
   },
   mutations: {
     getKey: (async (_state: State, key) => await getKey(key)),
@@ -48,10 +51,10 @@ export default new Vuex.Store({
       return _state;
     }),
     connecting: (async (_state: State, key) => {
-      _state.isConnecting = true;
+      _state.isConnecting++;
     }),
     connected: (async (_state: State, key) => {
-      _state.isConnecting = false;
+      _state.isConnecting--;
     }),
     addTask: (async (_state: State, { text }) => {
       const task = {
@@ -61,15 +64,21 @@ export default new Vuex.Store({
       } as Task;
       _state.tasks.push(task);
       await setKey(taskKeyName, JSON.stringify(_state.tasks));
-      _state.isConnecting = false;
+      _state.isConnecting--;
     }),
     getTasks: (async (_state: State) => {
       _state.tasks = JSON.parse(await getKey(taskKeyName)) as Task[];
-      _state.isConnecting = false;
+      _state.isConnecting--;
     }),
     deleteTask: (async (_state: State, task) => {
       _state.tasks = remove(findIndex(propEq('id', task.id), _state.tasks), 1, _state.tasks);
       await setKey(taskKeyName, JSON.stringify(_state.tasks));
+      _state.isConnecting--;
+    }),
+    updateTask: (async (_state: State, task) => {
+      _state.tasks = update(findIndex(propEq('id', task.id), _state.tasks), task, _state.tasks);
+      await setKey(taskKeyName, JSON.stringify(_state.tasks));
+      _state.isConnecting--;
     })
   }
 });
