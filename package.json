@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bluzelle": "^1.1.0",
+    "lodash": "^4.17.20",
     "ramda": "^0.27.1",
     "todomvc-app-css": "^2.3.0",
     "todomvc-common": "^1.0.5",
