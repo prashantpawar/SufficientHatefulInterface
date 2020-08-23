@@ -68,38 +68,40 @@
     </section>
     <!-- This footer should hidden by default and shown when there are todos -->
     <footer class='footer'>
-      <!-- This should be `0 items left` by default -->
-      <span class='todo-count'>
-        <strong>{{todo($store.state.tasks).length}}</strong> item left
-      </span>
-      <span class='todo-tx-status'>{{$store.state.isConnecting}} tx pending</span>
-      <!-- Remove this if you don't implement routing -->
-      <ul class='filters'>
-        <li>
-          <a
-            v-bind:class='{ selected: displayTodo && displayCompleted }'
-            href='#/'
-            v-on:click='showAll()'
-          >All</a>
-        </li>
-        <li>
-          <a
-            href='#'
-            v-bind:class='{ selected: !displayCompleted }'
-            v-on:click='showOnlyTodo()'
-          >Active</a>
-        </li>
-        <li>
-          <a
-            href='#'
-            v-bind:class='{ selected: !displayTodo }'
-            v-on:click='showOnlyCompleted()'
-          >Completed</a>
-        </li>
-      </ul>
-      <!-- Hidden if no completed items are left ↓ -->
-      <button class='clear-completed' v-on:click='deleteCompletedTasks()'>Clear completed</button>
+      <div>
+        <!-- This should be `0 items left` by default -->
+        <span class='todo-count'>
+          <strong>{{todo($store.state.tasks).length}}</strong> item left
+        </span>
+        <!-- Remove this if you don't implement routing -->
+        <ul class='filters'>
+          <li>
+            <a
+              v-bind:class='{ selected: displayTodo && displayCompleted }'
+              href='#/'
+              v-on:click='showAll()'
+            >All</a>
+          </li>
+          <li>
+            <a
+              href='#'
+              v-bind:class='{ selected: !displayCompleted }'
+              v-on:click='showOnlyTodo()'
+            >Active</a>
+          </li>
+          <li>
+            <a
+              href='#'
+              v-bind:class='{ selected: !displayTodo }'
+              v-on:click='showOnlyCompleted()'
+            >Completed</a>
+          </li>
+        </ul>
+        <!-- Hidden if no completed items are left ↓ -->
+        <button class='clear-completed' v-on:click='deleteCompletedTasks()'>Clear completed</button>
+      </div>
     </footer>
+    <span class='todo-tx-status'>{{$store.state.isConnecting}} tx pending</span>
   </section>
 </template>
 <script>

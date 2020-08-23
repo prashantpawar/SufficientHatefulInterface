@@ -12,5 +12,10 @@ export const app = new Vue({
   store,
   created: () => {
     initBlz(store);
+    window.addEventListener('beforeunload', (e) => {
+      if (store.state.isConnecting !== 0) {
+        e.preventDefault();
+      }
+    });
   }
 });
